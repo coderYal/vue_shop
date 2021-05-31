@@ -1,27 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+import { Message } from 'element-ui'
+
+const login = () => import('views/login/Login')
+const home = () => import('views/home/Home')
 
 Vue.use(VueRouter)
 
 const routes = [
+  // 路由重定向到登录页面
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: 'login'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/login',
+    component: login
+  },
+  {
+    path: '/home',
+    component: home
   }
 ]
 
 const router = new VueRouter({
   routes
+})
+
+// 添加路由前置守卫，判断是否有token
+router.beforeEach(function (to, from, next) {
+  const token = localStorage.getItem('token')
+  if (to.path === '/login') return next()
+  if (!token) {
+    Message.warning('暂无权限，请登录！')
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router
