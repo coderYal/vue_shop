@@ -5,6 +5,7 @@ import { Message } from 'element-ui'
 
 const login = () => import('views/login/Login')
 const home = () => import('views/home/Home')
+const welcome = () => import('views/home/homeChild/Welcome')
 
 Vue.use(VueRouter)
 
@@ -20,7 +21,14 @@ const routes = [
   },
   {
     path: '/home',
-    component: home
+    component: home,
+    redirect: '/welcome',
+    children: [
+      {
+        path: '/welcome',
+        component: welcome
+      }
+    ]
   }
 ]
 

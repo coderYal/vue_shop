@@ -4,12 +4,12 @@ export function request (config) {
 //  1：创建axios实例对象
   const instance = axios.create({
     baseURL: 'http://timemeetyou.com:8889/api/private/v1/',
-    timeout: 50000,
-    method: 'post'
+    timeout: 50000
   })
   // 2：配置请求拦截
   instance.interceptors.request.use(config => {
   //  2.1：通常加入loading动画，判断token，添加请求头
+    config.headers.Authorization = localStorage.getItem('token')
     return config
   }, err => {
     console.log(err)
