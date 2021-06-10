@@ -6,6 +6,7 @@ import { Message } from 'element-ui'
 const login = () => import('views/login/Login')
 const home = () => import('views/home/Home')
 const welcome = () => import('views/home/homeChild/Welcome')
+const user = () => import('components/content/user/user')
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,10 @@ const routes = [
       {
         path: '/welcome',
         component: welcome
+      },
+      {
+        path: '/users',
+        component: user
       }
     ]
   }

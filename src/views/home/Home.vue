@@ -12,7 +12,7 @@
         <el-aside :width="collapse ? '60px' : '200px'">
           <div class="menuZd" @click="menuZdClick">|||</div>
           <el-menu
-            default-active="2"
+            :default-active="$route.path"
             class="el-menu-vertical-demo"
             unique-opened
             router
@@ -76,6 +76,7 @@ export default {
       }
     },
     menuZdClick() {
+
       this.collapse = !this.collapse
     }
   }
